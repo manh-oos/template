@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Invite Studio</title>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="currentColor"/><path d="M5.5 9.5 13 15l7.5-5.5" fill="none" stroke="var(--panel)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="5.5" y="7.5" width="15" height="11" rx="2" fill="none" stroke="var(--panel)" stroke-width="1.7"/></svg>
+      <span class="wordmark">Invite Studio</span>
+    </div>
+    <div class="sep"></div>
+    <input id="docName" class="docname" type="text" spellcheck="false" aria-label="Invitation name" maxlength="60">
+    <div class="grow"></div>
+    <div class="grp">
+      <button class="ib" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo" disabled></button>
+      <button class="ib" id="redo" title="Redo (Ctrl+Y)" aria-label="Redo" disabled></button>
+    </div>
+    <div class="sep"></div>
+    <div class="grp zoom">
+      <button class="ib" id="zoomOut" title="Zoom out" aria-label="Zoom out"></button>
+      <span id="zoomVal">100%</span>
+      <button class="ib" id="zoomIn" title="Zoom in" aria-label="Zoom in"></button>
+      <button class="ib" id="zoomFit" title="Fit to screen (Ctrl+0)" aria-label="Fit to screen"></button>
+    </div>
+    <div class="sep"></div>
+    <button class="btn" id="previewBtn"></button>
+    <button class="btn primary" id="exportBtn"></button>
+  </header>
+
+  <div class="body">
+    <nav class="rail" aria-label="Tools">
+      <button data-tab="templates" title="Templates"><i data-i="template"></i><span>Templates</span></button>
+      <button data-tab="elements" title="Elements"><i data-i="shapes"></i><span>Elements</span></button>
+      <button data-tab="uploads" title="Uploads"><i data-i="upload"></i><span>Uploads</span></button>
+      <button data-tab="layers" title="Layers"><i data-i="layers"></i><span>Layers</span></button>
+    </nav>
+    <aside class="side" id="sidePanel"></aside>
+
+    <main class="workspace">
+      <div class="scroller" id="scroller">
+        <div class="stage" id="stage"><div class="art" id="artboard" aria-label="Invitation canvas"></div></div>
+      </div>
+      <footer class="statusbar"><span id="saveState">Ready</span><span class="grow"></span><span>Double-click text to edit · Drag to move · Corners resize · Top handle rotates</span></footer>
+    </main>
+
+    <aside class="inspector" id="inspector"></aside>
+  </div>
+</div>
+
+<input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" hidden>
+<dialog id="dlg" class="dlg"></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="preview" id="preview" data-dev="phone">
+  <div class="pv-bar">
+    <strong>Preview</strong>
+    <div class="devs"><button data-dev="phone"><i data-i="phone"></i>Phone</button><button data-dev="desktop"><i data-i="monitor"></i>Desktop</button></div>
+    <span class="grow"></span>
+    <button class="btn ghost-light" id="pvClose"><i data-i="close"></i>Close</button>
+  </div>
+  <div class="pv-body"><iframe id="pvFrame" title="Invitation preview" sandbox="allow-scripts allow-popups"></iframe></div>
+</div>
+
+<div class="small-screen"><strong>Invite Studio works best on a larger screen.</strong><p>Open the editor on a laptop or desktop. Published invitations work on every phone.</p></div>
+
+<script src="js/icons.js"></script>
+<script>
+/* paint static icons */
+document.querySelectorAll('[data-i]').forEach(function(n){n.innerHTML=ICONS[n.dataset.i]||'';n.classList.add('ico');});
+[['undo','undo'],['redo','redo'],['zoomOut','minus'],['zoomIn','plus'],['zoomFit','fit']].forEach(function(p){document.getElementById(p[0]).innerHTML=ICONS[p[1]];});
+document.getElementById('previewBtn').innerHTML=ICONS.play+'<span>Preview</span>';
+document.getElementById('exportBtn').innerHTML=ICONS.download+'<span>Export</span>';
+</script>
+<script src="vendor/moveable.min.js"></script>
+<script src="vendor/Sortable.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/render.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/panels.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
